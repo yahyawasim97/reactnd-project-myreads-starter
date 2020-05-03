@@ -5,7 +5,13 @@ import Book from '../components/Book';
 class SearchPage extends Component {
   state = { books: [] };
   handleSearchChange = async (e) => {
-    this.getResults(e.target.value);
+    if (e.target.value) {
+      this.getResults(e.target.value);
+    } else {
+      this.setState({
+        books: [],
+      });
+    }
   };
 
   getResults = async (value) => {
@@ -13,6 +19,10 @@ class SearchPage extends Component {
       let response = await search(value);
       if (!response.error) {
         this.setState({ books: response });
+      } else {
+        this.setState({
+          books: [],
+        });
       }
     } catch (e) {
       console.log(e);
@@ -32,7 +42,6 @@ class SearchPage extends Component {
     try {
       await update(book, shelf);
       this.updateBookShelfs({ ...book, shelf });
-      this.props.history.push('/');
     } catch (e) {
       console.log(e);
     }

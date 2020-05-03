@@ -16,7 +16,7 @@ const Book = ({ book, handleCategoryChange }) => {
         )}
         <div className="book-shelf-changer">
           <select
-            defaultValue={book.shelf}
+            defaultValue={book.shelf ? book.shelf : 'none'}
             onChange={(e) => handleCategoryChange(book, e.target.value)}
           >
             <option value="move" disabled>
