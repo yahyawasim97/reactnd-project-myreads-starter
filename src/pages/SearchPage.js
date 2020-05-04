@@ -65,6 +65,11 @@ class SearchPage extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {this.state.books.map((book, index) => {
+              this.props.myBooks.forEach((myBook) => {
+                if (myBook.id === book.id) {
+                  book.shelf = myBook.shelf;
+                }
+              });
               return (
                 <li key={index}>
                   <Book

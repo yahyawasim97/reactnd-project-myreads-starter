@@ -6,13 +6,34 @@ import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 
 class App extends React.Component {
+  state = {
+    books: [],
+  };
+
+  setBooks = (books) => {
+    this.setState({
+      books,
+    });
+  };
+
   render() {
     return (
       <div className="app">
         <Router>
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route search="/search" exact component={SearchPage} />
+            <Route
+              path="/"
+              exact
+              render={() => (
+                <HomePage books={this.state.books} setBooks={this.setBooks} />
+              )}
+            />
+            <Route
+              search="/search"
+              exact
+              myBooks={this.state.books}
+              render={() => <SearchPage myBooks={this.state.books} />}
+            />
           </Switch>
         </Router>
       </div>
